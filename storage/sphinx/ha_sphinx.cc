@@ -1735,7 +1735,7 @@ bool CSphSEQuery::ParseField ( char * sField )
 		}
 	} else if ( !strcmp ( sName, "override" ) ) // name,type,id:value,id:value,...
 	{
-		char * sName = NULL;
+		sName = NULL;
 		int iType = 0;
 		CSphSEQuery::Override_t * pOverride = NULL;
 
@@ -1790,7 +1790,7 @@ bool CSphSEQuery::ParseField ( char * sField )
 			if (!( sRest = strchr ( sRest, ':' ) )) break; *sRest++ = '\0';
 			if (!( sRest - sId )) break;
 
-			char * sValue = sRest;
+			sValue = sRest;
 			if ( ( sRest = strchr ( sRest, ',' ) )!=NULL )
 				*sRest++ = '\0';
 			if ( !*sValue )
@@ -2670,7 +2670,7 @@ bool ha_sphinx::UnpackStats ( CSphSEStats * pStats )
 	assert ( pStats );
 
 	char * pCurSave = m_pCur;
-	for ( uint i=0; i<m_iMatchesTotal && m_pCur<m_pResponseEnd-sizeof(uint32); i++ ) // NOLINT
+	for ( uint m=0; m<m_iMatchesTotal && m_pCur<m_pResponseEnd-sizeof(uint32); m++ ) // NOLINT
 	{
 		m_pCur += m_bId64 ? 12 : 8; // skip id+weight
 		for ( uint32 i=0; i<m_iAttrs && m_pCur<m_pResponseEnd-sizeof(uint32); i++ ) // NOLINT

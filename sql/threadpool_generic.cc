@@ -55,6 +55,9 @@ typedef OVERLAPPED_ENTRY native_event;
 #error threadpool is not available on this platform
 #endif
 
+#ifdef _MSC_VER
+#pragma warning (disable : 4312)
+#endif
 
 static void io_poll_close(int fd)
 {
@@ -447,6 +450,7 @@ static void* native_event_get_userdata(native_event *event)
 
 #elif defined(HAVE_IOCP)
 
+
 static int io_poll_create()
 {
   HANDLE h= CreateIoCompletionPort(INVALID_HANDLE_VALUE, 0, 0, 0);
@@ -504,7 +508,6 @@ static void* native_event_get_userdata(native_event *event)
 {
   return (void *)event->lpCompletionKey;
 }
-
 #endif
 
 
