@@ -303,6 +303,7 @@ private:
   bool                m_pre_call_use_parallel;
   /* Keep track of bulk access requests */
   bool                bulk_access_executing;
+  bool		      m_need_info_for_auto_inc;
 
   /** keep track of locked partitions */
   MY_BITMAP m_locked_partitions;
@@ -1135,6 +1136,8 @@ public:
     auto_increment_column_changed
      -------------------------------------------------------------------------
   */
+  virtual bool need_info_for_auto_inc();
+  virtual bool can_use_for_auto_inc_init();
   virtual void get_auto_increment(ulonglong offset, ulonglong increment,
                                   ulonglong nb_desired_values,
                                   ulonglong *first_value,
