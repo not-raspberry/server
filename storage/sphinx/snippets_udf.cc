@@ -450,7 +450,7 @@ int CSphUrl::Connect()
 	char * pError = NULL;
 	do
 	{
-		iSocket = socket ( iDomain, SOCK_STREAM, 0 );
+		iSocket = (int)socket ( iDomain, SOCK_STREAM, 0 );
 		if ( iSocket==-1 )
 		{
 			pError = "Failed to create client socket";

@@ -1770,11 +1770,11 @@ static void translog_new_page_header(TRANSLOG_ADDRESS *horizon,
     ptr+= TRANSLOG_PAGE_SIZE / DISK_DRIVE_SECTOR_SIZE;
   }
   {
-    uint len= (ptr - cursor->ptr);
+    size_t len= (ptr - cursor->ptr);
     (*horizon)+= len; /* increasing the offset part of the address */
-    cursor->current_page_fill= len;
+    cursor->current_page_fill= (uint16)len;
     if (!cursor->chaser)
-      cursor->buffer->size+= len;
+      cursor->buffer->size+= (translog_size_t)len;
   }
   cursor->ptr= ptr;
   DBUG_PRINT("info", ("NewP buffer #%u: %p  chaser: %d  Size: %lu (%lu)  "
@@ -4892,7 +4892,7 @@ static uint translog_get_current_page_rest()
 
 static uint translog_get_current_buffer_rest()
 {
-  return ((log_descriptor.bc.buffer->buffer + TRANSLOG_WRITE_BUFFER -
+  return (uint)((log_descriptor.bc.buffer->buffer + TRANSLOG_WRITE_BUFFER -
            log_descriptor.bc.ptr) /
           TRANSLOG_PAGE_SIZE);
 }
@@ -6834,7 +6834,7 @@ translog_variable_length_header(uchar *page, translog_size_t page_offset,
     src+= (2 + 2);
     page_rest= (uint16) (TRANSLOG_PAGE_SIZE - (src - page));
     curr= 0;
-    header_to_skip= src - (page + page_offset);
+    header_to_skip= (uint) (src - (page + page_offset));
     buff->chunk0_pages= 0;
 
     for (;;)

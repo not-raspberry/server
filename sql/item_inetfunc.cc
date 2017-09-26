@@ -493,7 +493,7 @@ static bool str_to_ipv6(const char *str, int str_length, in6_addr *ipv6_address)
       return false;
     }
 
-    size_t bytes_to_move= dst - gap_ptr;
+    int bytes_to_move= (int)(dst - gap_ptr);
 
     for (int i= 1; i <= bytes_to_move; ++i)
     {

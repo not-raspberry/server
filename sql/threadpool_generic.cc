@@ -1486,7 +1486,7 @@ static int change_group(TP_connection_generic *c,
  thread_group_t *new_group)
 { 
   int ret= 0;
-  int fd= mysql_socket_getfd(c->thd->net.vio->mysql_socket);
+  int fd= (int)mysql_socket_getfd(c->thd->net.vio->mysql_socket);
 
   DBUG_ASSERT(c->thread_group == old_group);
 
@@ -1514,7 +1514,7 @@ static int change_group(TP_connection_generic *c,
 
 int TP_connection_generic::start_io()
 { 
-  int fd= mysql_socket_getfd(thd->net.vio->mysql_socket);
+  int fd= (int)mysql_socket_getfd(thd->net.vio->mysql_socket);
 
 #ifndef HAVE_IOCP
   /*
