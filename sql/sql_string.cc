@@ -445,7 +445,7 @@ bool String::append(const String &s)
 
 bool String::append(const char *s,size_t size)
 {
-  DBUG_ASSERT(size <= UINT32_MAX);
+  DBUG_ASSERT(size <= UINT_MAX32);
   uint32 arg_length= (uint32) size;
   if (!arg_length)
     return FALSE;
